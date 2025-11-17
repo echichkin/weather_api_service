@@ -1,18 +1,31 @@
+import asyncio
 from dataclasses import dataclass
 import winsdk.windows.devices.geolocation as wdg
 
 from exceptions import CantGetCoordinates
+
 
 @dataclass(slots=True, frozen=True)
 class Coordinates:
     latitude: float
     longitude: float
 
+
+async def _get_position_async():
+    locator = wdg.Geolocator()
+    return await locator.get_geoposition_async()
+
+
 def get_gps_coordinates() -> Coordinates:
     "Returns current coordinates using laptop GPS"
     try:
-        locator = wdg.Geolocator()
-        pos = locator.get_geoposition_async().get()
+        try:
+            pos = asyncio.run(_get_position_async())
+        except RuntimeError:
+            loop = asyncio.new_event_loop()
+            pos = loop.run_until_complete(_get_position_async())
+            loop.close()
+
         latitude = pos.coordinate.point.position.latitude
         longitude = pos.coordinate.point.position.longitude
 

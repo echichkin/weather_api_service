@@ -44,7 +44,11 @@ def get_weather(coordinates: Coordinates) -> Weather:
 
 def _get_openweather_response(latitude: float, longitude: float) -> str:
     ssl._create_default_https_context = ssl._create_unverified_context
-    url = config.OPENWEATHER_URL.format(latitude=latitude, longitude=longitude)
+    url = config.OPENWEATHER_URL.format(
+        latitude=latitude,
+        longitude=longitude,
+        api_key=config.OPENWEATHER_API,
+    )
     try:
         return urllib.request.urlopen(url).read()
     except URLError:
@@ -59,7 +63,7 @@ def _parse_openweather_respose(openweather_response: str) -> Weather:
     return Weather(
         temperature=_parse_temperature(openweather_dict),
         weather_type=_parse_weather_type(openweather_dict),
-        sunrise=_parse_sun_time(openweather_dict, "sunrize"),
+        sunrise=_parse_sun_time(openweather_dict, "sunrise"),
         sunset=_parse_sun_time(openweather_dict, "sunset"),
         city=_parse_city(openweather_dict)
     )
