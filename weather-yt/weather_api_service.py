@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import TypeAlias #добавляем поддержку псевдонимов, чтобы делать типы кода более понятными.
 from enum import Enum
 from coordinates import Coordinates # импортируем класс координат из файла coordinates.py
+import config
 
 Celsius: TypeAlias = int # теперь если в аннотациях указано Celsius, ясно, что это именно температура в градусах °C
 
