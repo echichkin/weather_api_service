@@ -27,23 +27,10 @@ class Weather: # класс, который будет содержать дан
 
 def get_weather(coordinates: Coordinates) -> Weather:
     """Requests weather data from the API and returns it"""
-    pass
-
-print(WeatherType.CLEAR)  # WeatherType.CLEAR 
-print(WeatherType.CLEAR.value)  # Ясно 
-print(WeatherType.CLEAR.name)  # CLEAR
-
-
-# for weather_type in WeatherType:
-#     print(weather_type.name, weather_type.value)
-
-def what_should_i_do(weather_type: WeatherType) -> None:
-    match weather_type:
-        case WeatherType.THUNDERSTORM | WeatherType.RAIN:
-            print('Уф, лучше сиди дома')
-        case WeatherType.CLEAR:
-            print('O, отличная погодка')
-        case _:
-            print('Ну так, выходить можно')
-
-what_should_i_do(WeatherType.RAIN)
+    return Weather(
+        temperature=20,
+        weather_type=WeatherType.CLEAR,
+        sunrise=datetime.fromisoformat('2022-05-04 04:00:00'),
+        sunset=datetime.fromisoformat('2022-05-04 20:25:00'),
+        city='Moscow'
+    )
