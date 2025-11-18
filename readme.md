@@ -48,4 +48,4 @@ If you want to persist results, import `history.save_weather` and pass a `PlainF
 - `history.py` — optional storage abstraction.
 - `config.py` — configuration and API key loader.
 
-
+I used this book to adopt Mac version of code to Windows: t.me/t0digital/151
