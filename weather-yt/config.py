@@ -5,8 +5,8 @@ USE_ROUNDED_COORDS = True
 API_KEY_PATH = Path(__file__).with_name("api_key.txt")
 
 try:
-    with API_KEY_PATH.open("r", encoding="utf-8") as file:
-        OPENWEATHER_API = file.read().strip()
+    with API_KEY_PATH.open("r", encoding="utf-8") as f:
+        OPENWEATHER_API = f.read().strip()
 except FileNotFoundError as err:
     raise RuntimeError(f"Не найден файл с API ключом: {API_KEY_PATH}") from err
 

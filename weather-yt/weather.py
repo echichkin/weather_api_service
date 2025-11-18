@@ -1,8 +1,10 @@
+from pathlib import Path
+
 from exceptions import ApiServiceError, CantGetCoordinates
 from coordinates import get_gps_coordinates
 from weather_api_service import get_weather
 from weather_formatter import format_weather
-
+from history import PlainFileWeatherStorage, save_weather
 
 def main():
     try:
@@ -15,6 +17,10 @@ def main():
     except ApiServiceError:
         print("Can't get weather by API")
         exit(1)
+    save_weather(
+        weather,
+        PlainFileWeatherStorage(Path.cwd() / "history.txt")
+    )
     formatted_weather = format_weather(weather)
     print(formatted_weather)
 
